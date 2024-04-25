@@ -1,0 +1,29 @@
+{
+    "recommendations": [
+        "rangav.vscode-thunder-client",
+        "formulahendry.auto-close-tag",
+        "formulahendry.auto-rename-tag",
+        "aaron-bond.better-comments",
+        "streetsidesoftware.code-spell-checker",
+        "ms-azuretools.vscode-docker",
+        "dsznajder.es7-react-js-snippets",
+        "dbaeumer.vscode-eslint",
+        "wix.vscode-import-cost",
+        "visualstudioexptteam.vscodeintellicode",
+        "visualstudioexptteam.intellicode-api-usage-examples",
+        "mflo999.lintel",
+        "pkief.material-icon-theme",
+        "christian-kohler.npm-intellisense",
+        "christian-kohler.path-intellisense",
+        "johnpapa.vscode-peacock",
+        "esbenp.prettier-vscode",
+        "prisma.prisma",
+        "ms-vscode-remote.remote-ssh",
+        "ms-vscode-remote.remote-ssh-edit",
+        "ms-vscode.remote-explorer",
+        "jock.svg",
+        "bradlc.vscode-tailwindcss",
+        "eamodio.gitlens",
+        "codeium.codeium"
+    ]
+}
