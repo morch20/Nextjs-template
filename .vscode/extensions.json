@@ -24,6 +24,7 @@
         "jock.svg",
         "bradlc.vscode-tailwindcss",
         "eamodio.gitlens",
-        "codeium.codeium"
+        "codeium.codeium",
+        "ritwickdey.liveserver"
     ]
 }
