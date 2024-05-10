@@ -3,6 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
+        "clear": "rimraf .next coverage tsconfig.tsbuildinfo .swc",
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
@@ -53,6 +54,7 @@
         "jest-environment-jsdom": "^29.7.0",
         "postcss": "^8",
         "prettier": "3.2.5",
+        "rimraf": "^5.0.5",
         "tailwindcss": "^3.4.1",
         "ts-jest": "^29.1.2",
         "ts-node": "^10.9.2",
