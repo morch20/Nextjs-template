@@ -1,5 +1,13 @@
 echo '🏗️👷 Styling, testing and building your project before committing'
 
+# Check staged files first
+npx lint-staged ||
+(
+    echo '🏃‍♂️🏃‍♂️🕵️ Some staged files tried to get through. 🏃‍♂️🏃‍♂️🕵️
+            Try "npm run lint" and "npm run prettier" to see what is wrong.';
+    false;
+)
+
 # Check Prettier standards
 npm run prettier ||
 (
