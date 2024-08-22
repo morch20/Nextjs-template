@@ -1,30 +1,52 @@
 "use client";
 
-import { Moon, Sun } from "lucide-react";
+import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
-import { Button } from "@/components/ui/button";
+import { Moon, Sun } from "lucide-react";
+import { Button } from "../ui/button";
 
 export default function ModeToggle() {
-    const { setTheme } = useTheme();
+    const [mounted, setMounted] = useState(false);
+    const { setTheme, resolvedTheme } = useTheme();
+
+    const handleClick = () => {
+        if (resolvedTheme === "dark") {
+            setTheme("light");
+        } else {
+            setTheme("dark");
+        }
+    };
+
+    useEffect(() => setMounted(true), []);
+
+    if (!mounted) {
+        return (
+            <Button
+                type="button"
+                variant="outline"
+                className="rounded-full"
+                size="icon"
+            />
+        );
+    }
 
     return (
-        <>
-            <Button
-                variant="outline"
-                size="icon"
-                onClick={() => setTheme("light")}
-            >
-                <Sun className="h-[1.2rem] w-[1.2rem]" />
-                <span className="sr-only">Toggle theme light</span>
-            </Button>
-            <Button
-                variant="outline"
-                size="icon"
-                onClick={() => setTheme("dark")}
-            >
-                <Moon className="absolute h-[1.2rem]" />
-                <span className="sr-only">Toggle theme dark</span>
-            </Button>
-        </>
+        <Button
+            type="button"
+            variant="outline"
+            className="rounded-full"
+            size="icon"
+            onClick={handleClick}
+        >
+            <Sun
+                size={20}
+                className="hidden duration-200 animate-in fade-in dark:block"
+            />
+
+            <Moon
+                size={20}
+                className="duration-200 animate-in fade-in dark:hidden"
+            />
+        </Button>
     );
 }
