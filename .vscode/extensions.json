@@ -25,6 +25,7 @@
         "bradlc.vscode-tailwindcss",
         "eamodio.gitlens",
         "codeium.codeium",
-        "ritwickdey.liveserver"
+        "ritwickdey.liveserver",
+        "yoavbls.pretty-ts-errors"
     ]
 }
