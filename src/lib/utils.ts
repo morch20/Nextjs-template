@@ -49,49 +49,14 @@ export function capitalizeFirstLetters(
 
 /**
  * Generates a human-readable string representing the time elapsed since a given date.
- *
- * This function calculates the difference between the current date and the provided date and returns a string that describes how long ago that date was, or if it's in the future.
- *
- * @param {Date} date - The date to compare against the current date.
- * @returns {string} - A string representing the time difference in a human-readable format.
- *
- * @example
- * generateHowLongAgo(new Date(Date.now() - 3600 * 1000)); // "1 hour ago"
- * generateHowLongAgo(new Date(Date.now() + 3600 * 1000)); // "in the future"
  */
 export function generateHowLongAgo(date: Date): string {
-    const now = new Date();
-    let differenceInSeconds = Math.floor(
-        (now.getTime() - date.getTime()) / 1000
-    );
-
-    const agoOrFuture = differenceInSeconds < 0 ? "in the future" : "ago";
-    differenceInSeconds = Math.abs(differenceInSeconds);
-    const secondsInMinute = 60;
-    const secondsInHour = 60 * secondsInMinute;
-    const secondsInDay = 24 * secondsInHour;
-    const secondsInMonth = 30.44 * secondsInDay; // Average days in a month considering leap years
-    const secondsInYear = 365.25 * secondsInDay; // Average days in a year considering leap years
-
-    if (differenceInSeconds < secondsInMinute) {
-        return `${differenceInSeconds} second${differenceInSeconds !== 1 ? "s" : ""} ${agoOrFuture}`;
-    }
-    if (differenceInSeconds < secondsInHour) {
-        const minutes = Math.floor(differenceInSeconds / secondsInMinute);
-        return `${minutes} minute${minutes > 1 ? "s" : ""} ${agoOrFuture}`;
-    }
-    if (differenceInSeconds < secondsInDay) {
-        const hours = Math.floor(differenceInSeconds / secondsInHour);
-        return `${hours} hour${hours > 1 ? "s" : ""} ${agoOrFuture}`;
-    }
-    if (differenceInSeconds < secondsInMonth) {
-        const days = Math.floor(differenceInSeconds / secondsInDay);
-        return `${days} day${days > 1 ? "s" : ""} ${agoOrFuture}`;
-    }
-    if (differenceInSeconds < secondsInYear) {
-        const months = Math.floor(differenceInSeconds / secondsInMonth);
-        return `${months} month${months > 1 ? "s" : ""} ${agoOrFuture}`;
-    }
-    const years = Math.floor(differenceInSeconds / secondsInYear);
-    return `${years} year${years > 1 ? "s" : ""} ${agoOrFuture}`;
+    // * Use this library instead
+    // import { formatDistance } from "date-fns";
+    //
+    // return formatDistance(date, new Date(), {
+    //     addSuffix: true,
+    //     includeSeconds: true,
+    // });
+    return date.toISOString();
 }
