@@ -60,3 +60,24 @@ export function generateHowLongAgo(date: Date): string {
     // });
     return date.toISOString();
 }
+
+/**
+ * Generates an array of numbers starting from `start` and ending at `end` (inclusive).
+ *
+ * @param {number} start - The starting number of the array.
+ * @param {number} end - The ending number of the array.
+ * @returns {number[]} An array of numbers from `start` to `end`, inclusive.
+ *
+ * @example
+ * // Returns [5, 6, 7, 8, 9]
+ * generateArray(5, 9);
+ *
+ * @example
+ * // Returns [1, 2, 3]
+ * generateArray(1, 3);
+ */
+export function generateArray(start: number, end: number) {
+    const length = end - start + 1;
+
+    return Array.from({ length }, (_, idx) => idx + start);
+}
