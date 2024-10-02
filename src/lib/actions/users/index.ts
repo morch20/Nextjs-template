@@ -7,7 +7,7 @@ import { revalidatePath } from "next/cache";
 import { AppError } from "@/lib/errors";
 // import { options } from "@/app/api/auth/[...nextauth]/options";
 import catchAsyncAction from "@/lib/utils/functions/catchAsyncAction";
-import validate from "@/lib/utils/functions/validate";
+import { validateUnsafe } from "@/lib/utils/functions/validate";
 import { userRequestSchema, usersQuerySchema } from "@/lib/validations/users";
 import userDataAccess from "./dataAccess";
 import { PaginationResponse, UserRequest, UserResponse } from "@/lib/types";
@@ -29,15 +29,7 @@ async function validateSession() {
 
 export const getUserById = catchAsyncAction(
     async (id: number): Promise<UserResponse> => {
-        const parsedId = validate(paramsSchema, { id });
-
-        if ("message" in parsedId)
-            throw new AppError(
-                parsedId.message,
-                httpStatus.BAD_REQUEST,
-                false,
-                parsedId.data
-            );
+        const parsedId = validateUnsafe(paramsSchema, { id });
 
         const user = await userDataAccess.getUserById(parsedId.id);
 
@@ -50,19 +42,11 @@ export const getUserById = catchAsyncAction(
 
 export const createUser = catchAsyncAction(
     async (user: UserRequest): Promise<never> => {
-        const parsedUser = validate(userRequestSchema, user);
-
-        if ("message" in parsedUser)
-            throw new AppError(
-                parsedUser.message,
-                httpStatus.BAD_REQUEST,
-                false,
-                parsedUser.data
-            );
-
         await validateSession();
 
-        const newUser = await userDataAccess.createUser(user);
+        const parsedUser = validateUnsafe(userRequestSchema, user);
+
+        const newUser = await userDataAccess.createUser(parsedUser);
 
         // Most likely will never happen
         if (newUser.length !== 1)
@@ -78,26 +62,10 @@ export const createUser = catchAsyncAction(
 
 export const updateUserById = catchAsyncAction(
     async (id: number, user: UserRequest): Promise<never> => {
-        const parsedId = validate(paramsSchema, { id });
-        const parsedUser = validate(userRequestSchema, user);
-
-        if ("message" in parsedId)
-            throw new AppError(
-                parsedId.message,
-                httpStatus.BAD_REQUEST,
-                false,
-                parsedId.data
-            );
-
-        if ("message" in parsedUser)
-            throw new AppError(
-                parsedUser.message,
-                httpStatus.BAD_REQUEST,
-                false,
-                parsedUser.data
-            );
-
         await validateSession();
+
+        const parsedId = validateUnsafe(paramsSchema, { id });
+        const parsedUser = validateUnsafe(userRequestSchema, user);
 
         const updatedUser = await userDataAccess.updateUserById(
             parsedId.id,
@@ -122,15 +90,11 @@ export const getUsers = catchAsyncAction(
         amount: number,
         email: string
     ): Promise<PaginationResponse<UserResponse>> => {
-        const values = validate(usersQuerySchema, { page, amount, email });
-
-        if ("message" in values)
-            throw new AppError(
-                values.message,
-                httpStatus.BAD_REQUEST,
-                false,
-                values.data
-            );
+        const values = validateUnsafe(usersQuerySchema, {
+            page,
+            amount,
+            email,
+        });
 
         // Since the lowest allowed page is 1 for better user experience, and nicer math
         const newPage = values.page - 1;
@@ -165,17 +129,9 @@ export const getUsers = catchAsyncAction(
 
 export const deleteUserById = catchAsyncAction(
     async (id: number): Promise<never> => {
-        const parsedId = validate(paramsSchema, { id });
-
-        if ("message" in parsedId)
-            throw new AppError(
-                parsedId.message,
-                httpStatus.BAD_REQUEST,
-                false,
-                parsedId.data
-            );
-
         await validateSession();
+
+        const parsedId = validateUnsafe(paramsSchema, { id });
 
         await userDataAccess.deleteUserById(parsedId.id);
 
