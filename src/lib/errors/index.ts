@@ -8,7 +8,7 @@ export class AppError extends Error {
 
     private errorType: string;
 
-    private metadata: object;
+    private metadata: { [key: string]: string };
 
     /**
      * Creates an instance of AppError.

@@ -7,7 +7,7 @@ export type HandledError = {
     statusCode: number;
     message: string;
     errorType: string;
-    data: object;
+    data: { [key: string]: string };
 };
 
 // * Pagination
