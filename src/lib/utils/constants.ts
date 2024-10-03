@@ -9,4 +9,4 @@ export const ON_TAP_BOUNCE_ANIMATION = {
 
 export const USERS_ROLES = ["Admin", "Basic"] as const;
 
-export const PASSWORD_SPECIAL_CHARACTERS_REGEX = /[!@#$%^&*(),.?":{}|<>]/;
+export const PASSWORD_SPECIAL_CHARACTERS_REGEX = /[-_!@#$%^&*(),.?":{}|<>]/;
