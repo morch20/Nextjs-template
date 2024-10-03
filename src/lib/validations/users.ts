@@ -1,15 +1,23 @@
 import { z } from "zod";
 import { paginationSchema } from "./pagination";
-import { USERS_ROLES } from "../utils/constants";
+import {
+    PASSWORD_SPECIAL_CHARACTERS_REGEX,
+    USERS_ROLES,
+} from "../utils/constants";
 
 const baseUserSchema = z.object({
     id: z.number().int().positive(),
     email: z.string().trim().email("Please enter a valid email."),
     password: z
         .string()
-        .trim()
-        .min(4, "Password must contain at least 4 characters.")
-        .max(15, "Password must contain at most 15 characters."), // TODO: improve password security
+        .min(8, "Password must be at least 8 characters long")
+        .regex(/[A-Z]/, "Password must have at least one uppercase letter")
+        .regex(/[0-9]/, "Password must have at least one numeric character")
+        .regex(
+            PASSWORD_SPECIAL_CHARACTERS_REGEX,
+            "Password must have at least one special character"
+        )
+        .max(30, "Password must be at most 30 characters."),
     role: z.enum(USERS_ROLES).default("Basic"),
     updatedAt: z.date(),
     createdAt: z.date(),
